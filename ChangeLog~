@@ -1,0 +1,4 @@
+8/7/2004 sws openAPL-0.14s2
+- started with openAPL-0.14
+- removed many extra copies of apl.h etc; now only in apl11/include
+	

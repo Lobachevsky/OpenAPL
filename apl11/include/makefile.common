@@ -1,0 +1,5 @@
+CC= gcc
+CFLAGS=  -I../include  -g -O2
+LIBS=   -lreadline -lm  
+YACC= bison -y
+

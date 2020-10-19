@@ -1,0 +1,5 @@
+CC= @CC@
+CFLAGS= -I../include @CFLAGS@
+LIBS= @LIBS@
+YACC= @YACC@
+
