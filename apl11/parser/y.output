@@ -1,0 +1,1852 @@
+Terminals which are not used
+
+   unk
+   comnt
+
+
+Grammar
+
+    0 $accept: line $end
+
+    1 line: lex0 stat
+    2     | lex0 eol
+    3     | lex0 bcomand comand eol
+    4     | lex0 dell func
+    5     | lex0 tran eol
+    6     | lex0 tran expr eol
+    7     | lex1 stat
+    8     | lex2 dell func
+    9     | lex3 dell func
+   10     | lex4 dell func
+   11     | lex5 fstat
+
+   12 func: anyname asg header
+   13     | header
+
+   14 header: args autos
+
+   15 args: anyname anyname anyname
+   16     | anyname anyname
+   17     | anyname
+
+   18 autos: semi nam autos
+   19      | eol
+
+   20 bcomand: rpar
+
+   21 comand: comexpr expr
+   22       | comnam anyname
+   23       | comlist anylist
+   24       | comnull
+
+   25 anylist: anylist anyname
+   26        | anyname
+
+   27 fstat: dell eol
+   28      | eol
+   29      | labels eol
+   30      | labels fstat0
+   31      | fstat0
+
+   32 labels: label
+   33       | labels label
+
+   34 label: anyname cln
+
+   35 fstat0: stat
+   36       | tran eol
+   37       | tran expr eol
+
+   38 stat: statement eol
+
+   39 statement: expr
+   40          | hprint
+
+   41 hprint: expr hsemi output
+
+   42 output: expr
+   43       | hprint
+
+   44 hsemi: semi
+
+   45 expr: e1
+   46     | monadic expr
+   47     | e1 dyadic expr
+
+   48 e1: e2
+   49   | e2 lsub subs rbkt
+
+   50 e2: nfun
+   51   | nam
+   52   | strng
+   53   | vector
+   54   | lpar expr rpar
+   55   | q_var
+
+   56 vector: number vector
+   57       | number
+
+   58 number: numb
+
+   59 lsub: lbkt
+
+   60 subs: sub
+   61     | subs semi sub
+
+   62 sub: expr
+   63    | /* empty */
+
+   64 monadic: monad
+   65        | smonad subr
+   66        | mfun
+   67        | scalar comp
+   68        | scalar com subr
+
+   69 monad: m
+   70      | msub
+   71      | mondya
+
+   72 smonad: msub
+   73       | mdsub
+
+   74 dyadic: dyad
+   75       | sdyad subr
+   76       | dfun
+   77       | null dot scalar
+   78       | scalar dot scalar
+
+   79 sdyad: mdcom
+
+   80 subr: lbkt expr rbkt
+
+   81 comp: com
+   82     | com0
+
+   83 dyad: mondya
+   84     | dscal
+   85     | d
+   86     | com0
+   87     | asg
+   88     | com
+
+   89 mdcom: mdsub
+   90      | com
+
+   91 mondya: mdscal
+   92       | md
+   93       | mdsub
+
+   94 scalar: mdscal
+   95       | dscal
+
+   96 anyname: nam
+   97        | nfun
+   98        | mfun
+   99        | dfun
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+lex0 (258) 1 2 3 4 5 6
+lex1 (259) 7
+lex2 (260) 8
+lex3 (261) 9
+lex4 (262) 10
+lex5 (263) 11
+lpar (264) 54
+rpar (265) 20 54
+lbkt (266) 59 80
+rbkt (267) 49 80
+eol (268) 2 3 5 6 19 27 28 29 36 37 38
+unk (269)
+dell (270) 4 8 9 10 27
+null (271) 77
+dot (272) 77 78
+cln (273) 34
+semi (274) 18 44 61
+comnt (275)
+tran (276) 5 6 36 37
+strng (277) 52
+nam (278) 18 51 96
+numb (279) 58
+nfun (280) 50 97
+mfun (281) 66 98
+dfun (282) 76 99
+com (283) 68 81 88 90
+com0 (284) 82 86
+q_var (285) 55
+asg (286) 12 87
+comexpr (287) 21
+comnam (288) 22
+comnull (289) 24
+comlist (290) 23
+dscal (291) 84 95
+mdscal (292) 91 94
+m (293) 69
+d (294) 85
+md (295) 92
+msub (296) 70 72
+mdsub (297) 73 89 93
+
+
+Nonterminals, with rules where they appear
+
+$accept (43)
+    on left: 0
+line (44)
+    on left: 1 2 3 4 5 6 7 8 9 10 11, on right: 0
+func (45)
+    on left: 12 13, on right: 4 8 9 10
+header (46)
+    on left: 14, on right: 12 13
+args (47)
+    on left: 15 16 17, on right: 14
+autos (48)
+    on left: 18 19, on right: 14 18
+bcomand (49)
+    on left: 20, on right: 3
+comand (50)
+    on left: 21 22 23 24, on right: 3
+anylist (51)
+    on left: 25 26, on right: 23 25
+fstat (52)
+    on left: 27 28 29 30 31, on right: 11
+labels (53)
+    on left: 32 33, on right: 29 30 33
+label (54)
+    on left: 34, on right: 32 33
+fstat0 (55)
+    on left: 35 36 37, on right: 30 31
+stat (56)
+    on left: 38, on right: 1 7 35
+statement (57)
+    on left: 39 40, on right: 38
+hprint (58)
+    on left: 41, on right: 40 43
+output (59)
+    on left: 42 43, on right: 41
+hsemi (60)
+    on left: 44, on right: 41
+expr (61)
+    on left: 45 46 47, on right: 6 21 37 39 41 42 46 47 54 62 80
+e1 (62)
+    on left: 48 49, on right: 45 47
+e2 (63)
+    on left: 50 51 52 53 54 55, on right: 48 49
+vector (64)
+    on left: 56 57, on right: 53 56
+number (65)
+    on left: 58, on right: 56 57
+lsub (66)
+    on left: 59, on right: 49
+subs (67)
+    on left: 60 61, on right: 49 61
+sub (68)
+    on left: 62 63, on right: 60 61
+monadic (69)
+    on left: 64 65 66 67 68, on right: 46
+monad (70)
+    on left: 69 70 71, on right: 64
+smonad (71)
+    on left: 72 73, on right: 65
+dyadic (72)
+    on left: 74 75 76 77 78, on right: 47
+sdyad (73)
+    on left: 79, on right: 75
+subr (74)
+    on left: 80, on right: 65 68 75
+comp (75)
+    on left: 81 82, on right: 67
+dyad (76)
+    on left: 83 84 85 86 87 88, on right: 74
+mdcom (77)
+    on left: 89 90, on right: 79
+mondya (78)
+    on left: 91 92 93, on right: 71 83
+scalar (79)
+    on left: 94 95, on right: 67 68 77 78
+anyname (80)
+    on left: 96 97 98 99, on right: 12 15 16 17 22 25 26 34
+
+
+state 0
+
+    0 $accept: . line $end
+
+    lex0  shift, and go to state 1
+    lex1  shift, and go to state 2
+    lex2  shift, and go to state 3
+    lex3  shift, and go to state 4
+    lex4  shift, and go to state 5
+    lex5  shift, and go to state 6
+
+    line  go to state 7
+
+
+state 1
+
+    1 line: lex0 . stat
+    2     | lex0 . eol
+    3     | lex0 . bcomand comand eol
+    4     | lex0 . dell func
+    5     | lex0 . tran eol
+    6     | lex0 . tran expr eol
+
+    lpar    shift, and go to state 8
+    rpar    shift, and go to state 9
+    eol     shift, and go to state 10
+    dell    shift, and go to state 11
+    tran    shift, and go to state 12
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    bcomand    go to state 25
+    stat       go to state 26
+    statement  go to state 27
+    hprint     go to state 28
+    expr       go to state 29
+    e1         go to state 30
+    e2         go to state 31
+    vector     go to state 32
+    number     go to state 33
+    monadic    go to state 34
+    monad      go to state 35
+    smonad     go to state 36
+    mondya     go to state 37
+    scalar     go to state 38
+
+
+state 2
+
+    7 line: lex1 . stat
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    stat       go to state 39
+    statement  go to state 27
+    hprint     go to state 28
+    expr       go to state 29
+    e1         go to state 30
+    e2         go to state 31
+    vector     go to state 32
+    number     go to state 33
+    monadic    go to state 34
+    monad      go to state 35
+    smonad     go to state 36
+    mondya     go to state 37
+    scalar     go to state 38
+
+
+state 3
+
+    8 line: lex2 . dell func
+
+    dell  shift, and go to state 40
+
+
+state 4
+
+    9 line: lex3 . dell func
+
+    dell  shift, and go to state 41
+
+
+state 5
+
+   10 line: lex4 . dell func
+
+    dell  shift, and go to state 42
+
+
+state 6
+
+   11 line: lex5 . fstat
+
+    lpar    shift, and go to state 8
+    eol     shift, and go to state 43
+    dell    shift, and go to state 44
+    tran    shift, and go to state 45
+    strng   shift, and go to state 13
+    nam     shift, and go to state 46
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 47
+    mfun    shift, and go to state 48
+    dfun    shift, and go to state 49
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    fstat      go to state 50
+    labels     go to state 51
+    label      go to state 52
+    fstat0     go to state 53
+    stat       go to state 54
+    statement  go to state 27
+    hprint     go to state 28
+    expr       go to state 29
+    e1         go to state 30
+    e2         go to state 31
+    vector     go to state 32
+    number     go to state 33
+    monadic    go to state 34
+    monad      go to state 35
+    smonad     go to state 36
+    mondya     go to state 37
+    scalar     go to state 38
+    anyname    go to state 55
+
+
+state 7
+
+    0 $accept: line . $end
+
+    $end  shift, and go to state 56
+
+
+state 8
+
+   54 e2: lpar . expr rpar
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    expr     go to state 57
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 9
+
+   20 bcomand: rpar .
+
+    $default  reduce using rule 20 (bcomand)
+
+
+state 10
+
+    2 line: lex0 eol .
+
+    $default  reduce using rule 2 (line)
+
+
+state 11
+
+    4 line: lex0 dell . func
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    func     go to state 61
+    header   go to state 62
+    args     go to state 63
+    anyname  go to state 64
+
+
+state 12
+
+    5 line: lex0 tran . eol
+    6     | lex0 tran . expr eol
+
+    lpar    shift, and go to state 8
+    eol     shift, and go to state 65
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    expr     go to state 66
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 13
+
+   52 e2: strng .
+
+    $default  reduce using rule 52 (e2)
+
+
+state 14
+
+   51 e2: nam .
+
+    $default  reduce using rule 51 (e2)
+
+
+state 15
+
+   58 number: numb .
+
+    $default  reduce using rule 58 (number)
+
+
+state 16
+
+   50 e2: nfun .
+
+    $default  reduce using rule 50 (e2)
+
+
+state 17
+
+   66 monadic: mfun .
+
+    $default  reduce using rule 66 (monadic)
+
+
+state 18
+
+   55 e2: q_var .
+
+    $default  reduce using rule 55 (e2)
+
+
+state 19
+
+   95 scalar: dscal .
+
+    $default  reduce using rule 95 (scalar)
+
+
+state 20
+
+   91 mondya: mdscal .
+   94 scalar: mdscal .
+
+    dot       reduce using rule 94 (scalar)
+    com       reduce using rule 94 (scalar)
+    com0      reduce using rule 94 (scalar)
+    $default  reduce using rule 91 (mondya)
+
+
+state 21
+
+   69 monad: m .
+
+    $default  reduce using rule 69 (monad)
+
+
+state 22
+
+   92 mondya: md .
+
+    $default  reduce using rule 92 (mondya)
+
+
+state 23
+
+   70 monad: msub .
+   72 smonad: msub .
+
+    lbkt      reduce using rule 72 (smonad)
+    $default  reduce using rule 70 (monad)
+
+
+state 24
+
+   73 smonad: mdsub .
+   93 mondya: mdsub .
+
+    lbkt      reduce using rule 73 (smonad)
+    $default  reduce using rule 93 (mondya)
+
+
+state 25
+
+    3 line: lex0 bcomand . comand eol
+
+    comexpr  shift, and go to state 67
+    comnam   shift, and go to state 68
+    comnull  shift, and go to state 69
+    comlist  shift, and go to state 70
+
+    comand  go to state 71
+
+
+state 26
+
+    1 line: lex0 stat .
+
+    $default  reduce using rule 1 (line)
+
+
+state 27
+
+   38 stat: statement . eol
+
+    eol  shift, and go to state 72
+
+
+state 28
+
+   40 statement: hprint .
+
+    $default  reduce using rule 40 (statement)
+
+
+state 29
+
+   39 statement: expr .
+   41 hprint: expr . hsemi output
+
+    semi  shift, and go to state 73
+
+    $default  reduce using rule 39 (statement)
+
+    hsemi  go to state 74
+
+
+state 30
+
+   45 expr: e1 .
+   47     | e1 . dyadic expr
+
+    null    shift, and go to state 75
+    dfun    shift, and go to state 76
+    com     shift, and go to state 77
+    com0    shift, and go to state 78
+    asg     shift, and go to state 79
+    dscal   shift, and go to state 80
+    mdscal  shift, and go to state 20
+    d       shift, and go to state 81
+    md      shift, and go to state 22
+    mdsub   shift, and go to state 82
+
+    $default  reduce using rule 45 (expr)
+
+    dyadic  go to state 83
+    sdyad   go to state 84
+    dyad    go to state 85
+    mdcom   go to state 86
+    mondya  go to state 87
+    scalar  go to state 88
+
+
+state 31
+
+   48 e1: e2 .
+   49   | e2 . lsub subs rbkt
+
+    lbkt  shift, and go to state 89
+
+    $default  reduce using rule 48 (e1)
+
+    lsub  go to state 90
+
+
+state 32
+
+   53 e2: vector .
+
+    $default  reduce using rule 53 (e2)
+
+
+state 33
+
+   56 vector: number . vector
+   57       | number .
+
+    numb  shift, and go to state 15
+
+    $default  reduce using rule 57 (vector)
+
+    vector  go to state 91
+    number  go to state 33
+
+
+state 34
+
+   46 expr: monadic . expr
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    expr     go to state 92
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 35
+
+   64 monadic: monad .
+
+    $default  reduce using rule 64 (monadic)
+
+
+state 36
+
+   65 monadic: smonad . subr
+
+    lbkt  shift, and go to state 93
+
+    subr  go to state 94
+
+
+state 37
+
+   71 monad: mondya .
+
+    $default  reduce using rule 71 (monad)
+
+
+state 38
+
+   67 monadic: scalar . comp
+   68        | scalar . com subr
+
+    com   shift, and go to state 95
+    com0  shift, and go to state 96
+
+    comp  go to state 97
+
+
+state 39
+
+    7 line: lex1 stat .
+
+    $default  reduce using rule 7 (line)
+
+
+state 40
+
+    8 line: lex2 dell . func
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    func     go to state 98
+    header   go to state 62
+    args     go to state 63
+    anyname  go to state 64
+
+
+state 41
+
+    9 line: lex3 dell . func
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    func     go to state 99
+    header   go to state 62
+    args     go to state 63
+    anyname  go to state 64
+
+
+state 42
+
+   10 line: lex4 dell . func
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    func     go to state 100
+    header   go to state 62
+    args     go to state 63
+    anyname  go to state 64
+
+
+state 43
+
+   28 fstat: eol .
+
+    $default  reduce using rule 28 (fstat)
+
+
+state 44
+
+   27 fstat: dell . eol
+
+    eol  shift, and go to state 101
+
+
+state 45
+
+   36 fstat0: tran . eol
+   37       | tran . expr eol
+
+    lpar    shift, and go to state 8
+    eol     shift, and go to state 102
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    expr     go to state 103
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 46
+
+   51 e2: nam .
+   96 anyname: nam .
+
+    cln       reduce using rule 96 (anyname)
+    $default  reduce using rule 51 (e2)
+
+
+state 47
+
+   50 e2: nfun .
+   97 anyname: nfun .
+
+    cln       reduce using rule 97 (anyname)
+    $default  reduce using rule 50 (e2)
+
+
+state 48
+
+   66 monadic: mfun .
+   98 anyname: mfun .
+
+    cln       reduce using rule 98 (anyname)
+    $default  reduce using rule 66 (monadic)
+
+
+state 49
+
+   99 anyname: dfun .
+
+    $default  reduce using rule 99 (anyname)
+
+
+state 50
+
+   11 line: lex5 fstat .
+
+    $default  reduce using rule 11 (line)
+
+
+state 51
+
+   29 fstat: labels . eol
+   30      | labels . fstat0
+   33 labels: labels . label
+
+    lpar    shift, and go to state 8
+    eol     shift, and go to state 104
+    tran    shift, and go to state 45
+    strng   shift, and go to state 13
+    nam     shift, and go to state 46
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 47
+    mfun    shift, and go to state 48
+    dfun    shift, and go to state 49
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    label      go to state 105
+    fstat0     go to state 106
+    stat       go to state 54
+    statement  go to state 27
+    hprint     go to state 28
+    expr       go to state 29
+    e1         go to state 30
+    e2         go to state 31
+    vector     go to state 32
+    number     go to state 33
+    monadic    go to state 34
+    monad      go to state 35
+    smonad     go to state 36
+    mondya     go to state 37
+    scalar     go to state 38
+    anyname    go to state 55
+
+
+state 52
+
+   32 labels: label .
+
+    $default  reduce using rule 32 (labels)
+
+
+state 53
+
+   31 fstat: fstat0 .
+
+    $default  reduce using rule 31 (fstat)
+
+
+state 54
+
+   35 fstat0: stat .
+
+    $default  reduce using rule 35 (fstat0)
+
+
+state 55
+
+   34 label: anyname . cln
+
+    cln  shift, and go to state 107
+
+
+state 56
+
+    0 $accept: line $end .
+
+    $default  accept
+
+
+state 57
+
+   54 e2: lpar expr . rpar
+
+    rpar  shift, and go to state 108
+
+
+state 58
+
+   96 anyname: nam .
+
+    $default  reduce using rule 96 (anyname)
+
+
+state 59
+
+   97 anyname: nfun .
+
+    $default  reduce using rule 97 (anyname)
+
+
+state 60
+
+   98 anyname: mfun .
+
+    $default  reduce using rule 98 (anyname)
+
+
+state 61
+
+    4 line: lex0 dell func .
+
+    $default  reduce using rule 4 (line)
+
+
+state 62
+
+   13 func: header .
+
+    $default  reduce using rule 13 (func)
+
+
+state 63
+
+   14 header: args . autos
+
+    eol   shift, and go to state 109
+    semi  shift, and go to state 110
+
+    autos  go to state 111
+
+
+state 64
+
+   12 func: anyname . asg header
+   15 args: anyname . anyname anyname
+   16     | anyname . anyname
+   17     | anyname .
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+    asg   shift, and go to state 112
+
+    $default  reduce using rule 17 (args)
+
+    anyname  go to state 113
+
+
+state 65
+
+    5 line: lex0 tran eol .
+
+    $default  reduce using rule 5 (line)
+
+
+state 66
+
+    6 line: lex0 tran expr . eol
+
+    eol  shift, and go to state 114
+
+
+state 67
+
+   21 comand: comexpr . expr
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    expr     go to state 115
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 68
+
+   22 comand: comnam . anyname
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    anyname  go to state 116
+
+
+state 69
+
+   24 comand: comnull .
+
+    $default  reduce using rule 24 (comand)
+
+
+state 70
+
+   23 comand: comlist . anylist
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    anylist  go to state 117
+    anyname  go to state 118
+
+
+state 71
+
+    3 line: lex0 bcomand comand . eol
+
+    eol  shift, and go to state 119
+
+
+state 72
+
+   38 stat: statement eol .
+
+    $default  reduce using rule 38 (stat)
+
+
+state 73
+
+   44 hsemi: semi .
+
+    $default  reduce using rule 44 (hsemi)
+
+
+state 74
+
+   41 hprint: expr hsemi . output
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    hprint   go to state 120
+    output   go to state 121
+    expr     go to state 122
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 75
+
+   77 dyadic: null . dot scalar
+
+    dot  shift, and go to state 123
+
+
+state 76
+
+   76 dyadic: dfun .
+
+    $default  reduce using rule 76 (dyadic)
+
+
+state 77
+
+   88 dyad: com .
+   90 mdcom: com .
+
+    lbkt      reduce using rule 90 (mdcom)
+    $default  reduce using rule 88 (dyad)
+
+
+state 78
+
+   86 dyad: com0 .
+
+    $default  reduce using rule 86 (dyad)
+
+
+state 79
+
+   87 dyad: asg .
+
+    $default  reduce using rule 87 (dyad)
+
+
+state 80
+
+   84 dyad: dscal .
+   95 scalar: dscal .
+
+    dot       reduce using rule 95 (scalar)
+    $default  reduce using rule 84 (dyad)
+
+
+state 81
+
+   85 dyad: d .
+
+    $default  reduce using rule 85 (dyad)
+
+
+state 82
+
+   89 mdcom: mdsub .
+   93 mondya: mdsub .
+
+    lbkt      reduce using rule 89 (mdcom)
+    $default  reduce using rule 93 (mondya)
+
+
+state 83
+
+   47 expr: e1 dyadic . expr
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    expr     go to state 124
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 84
+
+   75 dyadic: sdyad . subr
+
+    lbkt  shift, and go to state 93
+
+    subr  go to state 125
+
+
+state 85
+
+   74 dyadic: dyad .
+
+    $default  reduce using rule 74 (dyadic)
+
+
+state 86
+
+   79 sdyad: mdcom .
+
+    $default  reduce using rule 79 (sdyad)
+
+
+state 87
+
+   83 dyad: mondya .
+
+    $default  reduce using rule 83 (dyad)
+
+
+state 88
+
+   78 dyadic: scalar . dot scalar
+
+    dot  shift, and go to state 126
+
+
+state 89
+
+   59 lsub: lbkt .
+
+    $default  reduce using rule 59 (lsub)
+
+
+state 90
+
+   49 e1: e2 lsub . subs rbkt
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    $default  reduce using rule 63 (sub)
+
+    expr     go to state 127
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    subs     go to state 128
+    sub      go to state 129
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 91
+
+   56 vector: number vector .
+
+    $default  reduce using rule 56 (vector)
+
+
+state 92
+
+   46 expr: monadic expr .
+
+    $default  reduce using rule 46 (expr)
+
+
+state 93
+
+   80 subr: lbkt . expr rbkt
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    expr     go to state 130
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 94
+
+   65 monadic: smonad subr .
+
+    $default  reduce using rule 65 (monadic)
+
+
+state 95
+
+   68 monadic: scalar com . subr
+   81 comp: com .
+
+    lbkt  shift, and go to state 93
+
+    $default  reduce using rule 81 (comp)
+
+    subr  go to state 131
+
+
+state 96
+
+   82 comp: com0 .
+
+    $default  reduce using rule 82 (comp)
+
+
+state 97
+
+   67 monadic: scalar comp .
+
+    $default  reduce using rule 67 (monadic)
+
+
+state 98
+
+    8 line: lex2 dell func .
+
+    $default  reduce using rule 8 (line)
+
+
+state 99
+
+    9 line: lex3 dell func .
+
+    $default  reduce using rule 9 (line)
+
+
+state 100
+
+   10 line: lex4 dell func .
+
+    $default  reduce using rule 10 (line)
+
+
+state 101
+
+   27 fstat: dell eol .
+
+    $default  reduce using rule 27 (fstat)
+
+
+state 102
+
+   36 fstat0: tran eol .
+
+    $default  reduce using rule 36 (fstat0)
+
+
+state 103
+
+   37 fstat0: tran expr . eol
+
+    eol  shift, and go to state 132
+
+
+state 104
+
+   29 fstat: labels eol .
+
+    $default  reduce using rule 29 (fstat)
+
+
+state 105
+
+   33 labels: labels label .
+
+    $default  reduce using rule 33 (labels)
+
+
+state 106
+
+   30 fstat: labels fstat0 .
+
+    $default  reduce using rule 30 (fstat)
+
+
+state 107
+
+   34 label: anyname cln .
+
+    $default  reduce using rule 34 (label)
+
+
+state 108
+
+   54 e2: lpar expr rpar .
+
+    $default  reduce using rule 54 (e2)
+
+
+state 109
+
+   19 autos: eol .
+
+    $default  reduce using rule 19 (autos)
+
+
+state 110
+
+   18 autos: semi . nam autos
+
+    nam  shift, and go to state 133
+
+
+state 111
+
+   14 header: args autos .
+
+    $default  reduce using rule 14 (header)
+
+
+state 112
+
+   12 func: anyname asg . header
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    header   go to state 134
+    args     go to state 63
+    anyname  go to state 135
+
+
+state 113
+
+   15 args: anyname anyname . anyname
+   16     | anyname anyname .
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    $default  reduce using rule 16 (args)
+
+    anyname  go to state 136
+
+
+state 114
+
+    6 line: lex0 tran expr eol .
+
+    $default  reduce using rule 6 (line)
+
+
+state 115
+
+   21 comand: comexpr expr .
+
+    $default  reduce using rule 21 (comand)
+
+
+state 116
+
+   22 comand: comnam anyname .
+
+    $default  reduce using rule 22 (comand)
+
+
+state 117
+
+   23 comand: comlist anylist .
+   25 anylist: anylist . anyname
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    $default  reduce using rule 23 (comand)
+
+    anyname  go to state 137
+
+
+state 118
+
+   26 anylist: anyname .
+
+    $default  reduce using rule 26 (anylist)
+
+
+state 119
+
+    3 line: lex0 bcomand comand eol .
+
+    $default  reduce using rule 3 (line)
+
+
+state 120
+
+   43 output: hprint .
+
+    $default  reduce using rule 43 (output)
+
+
+state 121
+
+   41 hprint: expr hsemi output .
+
+    $default  reduce using rule 41 (hprint)
+
+
+state 122
+
+   41 hprint: expr . hsemi output
+   42 output: expr .
+
+    semi  shift, and go to state 73
+
+    $default  reduce using rule 42 (output)
+
+    hsemi  go to state 74
+
+
+state 123
+
+   77 dyadic: null dot . scalar
+
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 138
+
+    scalar  go to state 139
+
+
+state 124
+
+   47 expr: e1 dyadic expr .
+
+    $default  reduce using rule 47 (expr)
+
+
+state 125
+
+   75 dyadic: sdyad subr .
+
+    $default  reduce using rule 75 (dyadic)
+
+
+state 126
+
+   78 dyadic: scalar dot . scalar
+
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 138
+
+    scalar  go to state 140
+
+
+state 127
+
+   62 sub: expr .
+
+    $default  reduce using rule 62 (sub)
+
+
+state 128
+
+   49 e1: e2 lsub subs . rbkt
+   61 subs: subs . semi sub
+
+    rbkt  shift, and go to state 141
+    semi  shift, and go to state 142
+
+
+state 129
+
+   60 subs: sub .
+
+    $default  reduce using rule 60 (subs)
+
+
+state 130
+
+   80 subr: lbkt expr . rbkt
+
+    rbkt  shift, and go to state 143
+
+
+state 131
+
+   68 monadic: scalar com subr .
+
+    $default  reduce using rule 68 (monadic)
+
+
+state 132
+
+   37 fstat0: tran expr eol .
+
+    $default  reduce using rule 37 (fstat0)
+
+
+state 133
+
+   18 autos: semi nam . autos
+
+    eol   shift, and go to state 109
+    semi  shift, and go to state 110
+
+    autos  go to state 144
+
+
+state 134
+
+   12 func: anyname asg header .
+
+    $default  reduce using rule 12 (func)
+
+
+state 135
+
+   15 args: anyname . anyname anyname
+   16     | anyname . anyname
+   17     | anyname .
+
+    nam   shift, and go to state 58
+    nfun  shift, and go to state 59
+    mfun  shift, and go to state 60
+    dfun  shift, and go to state 49
+
+    $default  reduce using rule 17 (args)
+
+    anyname  go to state 113
+
+
+state 136
+
+   15 args: anyname anyname anyname .
+
+    $default  reduce using rule 15 (args)
+
+
+state 137
+
+   25 anylist: anylist anyname .
+
+    $default  reduce using rule 25 (anylist)
+
+
+state 138
+
+   94 scalar: mdscal .
+
+    $default  reduce using rule 94 (scalar)
+
+
+state 139
+
+   77 dyadic: null dot scalar .
+
+    $default  reduce using rule 77 (dyadic)
+
+
+state 140
+
+   78 dyadic: scalar dot scalar .
+
+    $default  reduce using rule 78 (dyadic)
+
+
+state 141
+
+   49 e1: e2 lsub subs rbkt .
+
+    $default  reduce using rule 49 (e1)
+
+
+state 142
+
+   61 subs: subs semi . sub
+
+    lpar    shift, and go to state 8
+    strng   shift, and go to state 13
+    nam     shift, and go to state 14
+    numb    shift, and go to state 15
+    nfun    shift, and go to state 16
+    mfun    shift, and go to state 17
+    q_var   shift, and go to state 18
+    dscal   shift, and go to state 19
+    mdscal  shift, and go to state 20
+    m       shift, and go to state 21
+    md      shift, and go to state 22
+    msub    shift, and go to state 23
+    mdsub   shift, and go to state 24
+
+    $default  reduce using rule 63 (sub)
+
+    expr     go to state 127
+    e1       go to state 30
+    e2       go to state 31
+    vector   go to state 32
+    number   go to state 33
+    sub      go to state 145
+    monadic  go to state 34
+    monad    go to state 35
+    smonad   go to state 36
+    mondya   go to state 37
+    scalar   go to state 38
+
+
+state 143
+
+   80 subr: lbkt expr rbkt .
+
+    $default  reduce using rule 80 (subr)
+
+
+state 144
+
+   18 autos: semi nam autos .
+
+    $default  reduce using rule 18 (autos)
+
+
+state 145
+
+   61 subs: subs semi sub .
+
+    $default  reduce using rule 61 (subs)

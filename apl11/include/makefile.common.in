@@ -1,0 +1,5 @@
+CC= @CC@
+CFLAGS= @CPPFLAGS@ -I../include @inc_search_path@ @CFLAGS@
+LIBS= @LDFLAGS@ @lib_search_path@ @LIBS@ 
+YACC= @YACC@
+
